@@ -54,7 +54,7 @@ class VGGFaceRecognizer:
         cropped_face = self.get_face(image)
 
         if not cropped_face:
-            return {"face_id": None, "face_score": None, "inference_time": round(time.time() - start_time, 4)}
+            return {"id": None, "face_score": None, "inference_time": round(time.time() - start_time, 4)}
 
         db_faces = Person.query.all()
 
@@ -87,8 +87,8 @@ class VGGFaceRecognizer:
                     db_face_features.squeeze(), query_features.flatten()
                 )
                 temp_sim_dict[key] = score
-        return {"face_id": 0, "face_score": 0.0} if min(temp_sim_dict.values()) > thresh else {
-            "face_id": min(temp_sim_dict, key=temp_sim_dict.get), "face_score": min(temp_sim_dict.values())}
+        return {"id": 0, "face_score": 0.0} if min(temp_sim_dict.values()) > thresh else {
+            "id": min(temp_sim_dict, key=temp_sim_dict.get), "face_score": min(temp_sim_dict.values())}
 
     @staticmethod
     def fix_coordinates(box: list, width: int, height: int):
