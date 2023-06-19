@@ -20,7 +20,7 @@ def recognizer():
             face_dict = face_recognizer.recognize(image)
             LOGGER.info(face_dict)
 
-            return make_response(jsonify(face_dict), 200) if face_dict['face_id'] else Response(
+            return make_response(jsonify(face_dict), 200) if face_dict['id'] else Response(
                 status=404)
         except Exception as e:
             LOGGER.error(e)
